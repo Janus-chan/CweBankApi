@@ -1,0 +1,35 @@
+name: .NET Build & Test
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v4
+      with:
+        dotnet-version: '8.x'
+
+    - name: Restore dependencies
+      run: dotnet restore CweBankApi/CweBankApi.csproj
+
+    - name: Build
+      run: dotnet build CweBankApi/CweBankApi.csproj --no-restore --configuration Release
+
+    - name: Run tests (if added later)
+      run: |
+        if [ -d "CweBankApi.Tests" ]; then
+          dotnet test CweBankApi.Tests/CweBankApi.Tests.csproj --no-build --verbosity normal
+        else
+          echo "No test project found."
+        fi
