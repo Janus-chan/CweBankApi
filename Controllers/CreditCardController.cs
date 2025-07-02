@@ -12,6 +12,7 @@ namespace CweBankApi.Controllers
         [ProducesResponseType(typeof(CreditCardResponse), 200)]
         public ActionResult<CreditCardResponse> SubmitInquiry([FromBody] CreditCardRequest request)
         {
+            Console.WriteLine($"Received credit card inquiry for: {request.CreditCardNumber}");
             if (!ModelState.IsValid)
             {
                 return BadRequest(new CreditCardResponse { Message = "Invalid credit card format." });
