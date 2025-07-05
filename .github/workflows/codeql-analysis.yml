@@ -8,10 +8,17 @@ on:
   schedule:
     - cron: '30 1 * * 0'  # Weekly on Sunday at 1:30 AM
 
+# Add permissions at the workflow level
+permissions:
+  actions: read
+  contents: read
+  security-events: write
+
 jobs:
   analyze:
     name: Analyze
     runs-on: ubuntu-latest
+    # Also add permissions at job level for clarity
     permissions:
       actions: read
       contents: read
