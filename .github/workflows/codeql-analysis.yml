@@ -40,10 +40,10 @@ jobs:
         dotnet-version: '8.0.x'
 
     - name: Clean solution
-      run: dotnet clean
+      run: dotnet clean || echo "Clean failed, continuing..."
 
     - name: Restore dependencies
-      run: dotnet restore CweBankApi.csproj
+      run: dotnet restore --force --no-cache
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
@@ -52,7 +52,7 @@ jobs:
 
     - name: Build application
       run: |
-        dotnet build CweBankApi.csproj --configuration Debug --no-restore --no-incremental --force
+        dotnet build --configuration Debug --no-restore --no-incremental --force
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
