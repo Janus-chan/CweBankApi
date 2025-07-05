@@ -39,11 +39,18 @@ jobs:
       with:
         dotnet-version: '8.0.x'
 
+    - name: List files for debugging
+      run: |
+        echo "Current directory contents:"
+        ls -la
+        echo "Looking for .csproj files:"
+        find . -name "*.csproj" -type f
+
     - name: Clean solution
-      run: dotnet clean || echo "Clean failed, continuing..."
+      run: dotnet clean CweBankApi.csproj || echo "Clean failed, continuing..."
 
     - name: Restore dependencies
-      run: dotnet restore --force --no-cache
+      run: dotnet restore CweBankApi.csproj --force --no-cache
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
@@ -52,7 +59,7 @@ jobs:
 
     - name: Build application
       run: |
-        dotnet build --configuration Debug --no-restore --no-incremental --force
+        dotnet build CweBankApi.csproj --configuration Debug --no-restore --no-incremental --force
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
