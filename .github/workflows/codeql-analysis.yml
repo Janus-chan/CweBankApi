@@ -43,7 +43,7 @@ jobs:
       run: dotnet clean
 
     - name: Restore dependencies
-      run: dotnet restore
+      run: dotnet restore CweBankApi.csproj
 
     - name: Initialize CodeQL
       uses: github/codeql-action/init@v3
@@ -52,7 +52,7 @@ jobs:
 
     - name: Build application
       run: |
-        dotnet build --configuration Debug --no-restore --no-incremental --force
+        dotnet build CweBankApi.csproj --configuration Debug --no-restore --no-incremental --force
 
     - name: Perform CodeQL Analysis
       uses: github/codeql-action/analyze@v3
