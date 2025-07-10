@@ -46,16 +46,16 @@ jobs:
         echo "Looking for .csproj files:"
         find . -name "*.csproj" -type f
 
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v3
+      with:
+        languages: ${{ matrix.language }}
+
     - name: Clean solution
       run: dotnet clean CweBankApi.csproj || echo "Clean failed, continuing..."
 
     - name: Restore dependencies
       run: dotnet restore CweBankApi.csproj --force --no-cache
-
-    - name: Initialize CodeQL
-      uses: github/codeql-action/init@v3
-      with:
-        languages: ${{ matrix.language }}
 
     - name: Build application
       run: |

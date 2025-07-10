@@ -20,11 +20,18 @@ jobs:
       with:
         dotnet-version: '8.x'
 
+    - name: List files for debugging
+      run: |
+        echo "Current directory contents:"
+        ls -la
+        echo "Looking for .csproj files:"
+        find . -name "*.csproj" -type f
+
     - name: Restore dependencies
-      run: dotnet restore CweBankApi/CweBankApi.csproj
+      run: dotnet restore CweBankApi.csproj
 
     - name: Build
-      run: dotnet build CweBankApi/CweBankApi.csproj --no-restore --configuration Release
+      run: dotnet build CweBankApi.csproj --no-restore --configuration Release
 
     - name: Run tests (if added later)
       run: |
